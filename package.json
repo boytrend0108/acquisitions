@@ -1,0 +1,24 @@
+{
+  "name": "acquisitions",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/boytrend0108/acquisitions#readme",
+  "bugs": {
+    "url": "https://github.com/boytrend0108/acquisitions/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boytrend0108/acquisitions.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0"
+  }
+}
