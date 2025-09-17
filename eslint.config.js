@@ -25,6 +25,7 @@ export default [
       quotes: ['error', 'single'],
       semi: ['error', 'always'],
       'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'no-undef': 'error',
       'no-console': 'off',
       'prefer-const': 'error',
       'no-var': 'error',
