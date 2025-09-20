@@ -6,6 +6,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
 import authRouter from '#routes/auth.router.js';
+import { securityMiddleware } from '#middlewares/security.middware.js';
 
 const app = express();
 app.use(helmet());
@@ -18,6 +19,7 @@ app.use(
     stream: { write: message => logger.info(message.trim()) },
   })
 );
+app.use(securityMiddleware);
 
 app.get('/', (req, res) => {
   logger.info('Acquisitions endpoint hit');
