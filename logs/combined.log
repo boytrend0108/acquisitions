@@ -58,3 +58,6 @@
 {"level":"info","message":"User created: vit2@test.ru","service":"acquisitions-api","timestamp":"2025-09-20T08:16:00.849Z"}
 {"level":"info","message":"User signed up: vit2@test.ru","service":"acquisitions-api","timestamp":"2025-09-20T08:16:00.855Z"}
 {"level":"info","message":"::1 - - [20/Sep/2025:08:16:00 +0000] \"POST /api/auth/sign-up HTTP/1.1\" 201 145 \"-\" \"HTTPie\"","service":"acquisitions-api","timestamp":"2025-09-20T08:16:00.859Z"}
+{"level":"info","message":"User created: vit3@test.ru","service":"acquisitions-api","timestamp":"2025-09-20T09:04:18.219Z"}
+{"level":"info","message":"User signed up: vit3@test.ru","service":"acquisitions-api","timestamp":"2025-09-20T09:04:18.235Z"}
+{"level":"info","message":"::1 - - [20/Sep/2025:09:04:18 +0000] \"POST /api/auth/sign-up HTTP/1.1\" 201 145 \"-\" \"HTTPie\"","service":"acquisitions-api","timestamp":"2025-09-20T09:04:18.248Z"}
