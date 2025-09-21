@@ -34,16 +34,34 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
             type=raw,value=prod-{{date 'YYYYMMDD-HHmmss'}}
 
+      - name: Ensure env files for build
+        run: |
+          set -euo pipefail
+          mkdir -p acquisitions
+          # If acquisitions/env.expample exists, use it as the source for env files
+          if [ -f acquisitions/env.expample ]; then
+            cp acquisitions/env.expample acquisitions/.env.production || true
+            cp acquisitions/env.expample acquisitions/.env.development || true
+          else
+            # Fallback: create minimal env files so Dockerfile copy doesn't fail
+            printf "NODE_ENV=production\n" > acquisitions/.env.production
+            printf "NODE_ENV=development\n" > acquisitions/.env.development
+          fi
+
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./acquisitions
+          file: ./acquisitions/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/acquisitions:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/acquisitions:buildcache,mode=max
+          # Ensure the Dockerfile sees NODE_ENV=production so it copies .env.production (we created it above)
+          build-args: |
+            NODE_ENV=production
 
       - name: Generate build summary
         run: |
