@@ -1,74 +1,43 @@
-name: Lint and Format Check
+name: Lint and Format
 
 on:
   push:
-    branches: [main, staging]
+    branches: [main]
   pull_request:
-    branches: [main, staging]
+    branches: [main]
 
 jobs:
-  lint-and-format:
-    name: Run ESLint and Prettier
+  lint-format:
+    name: Lint & Format checks
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [18]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
       - name: Install dependencies
-        shell: bash
-        run: |
-          echo "Node version: $(node --version)"
-          echo "NPM version: $(npm --version)"
-          npm config list
-          npm ci
+        run: npm ci
+        working-directory: ./
 
-      - name: Run ESLint
-        shell: bash
-        run: |
-          if [ ! -f "package.json" ]; then
-            echo "Error: package.json not found"
-            exit 1
-          fi
-          echo "Running ESLint..."
-          npm run lint
-        continue-on-error: true
-        id: lint
+      - name: Prettier format check
+        run: npm run format:check
+        working-directory: ./
 
-      - name: Run Prettier check
-        shell: bash
-        run: |
-          if [ ! -f "package.json" ]; then
-            echo "Error: package.json not found"
-            exit 1
-          fi
-          echo "Running Prettier check..."
-          npm run format:check
-        continue-on-error: true
-        id: format
+      - name: ESLint check
+        run: npm run lint --silent
+        working-directory: ./
 
-      - name: Process lint and format results
+      - name: Upload ESLint report (plain text)
+        if: failure()
         run: |
-          if [[ "${{ steps.lint.outcome }}" == "failure" || "${{ steps.format.outcome }}" == "failure" ]]; then
-            echo "### ❌ Code Quality Issues Found" >> $GITHUB_STEP_SUMMARY
-            
-            if [[ "${{ steps.lint.outcome }}" == "failure" ]]; then
-              echo "#### ESLint Issues" >> $GITHUB_STEP_SUMMARY
-              echo "To fix ESLint issues, run: \`npm run lint:fix\`" >> $GITHUB_STEP_SUMMARY
-            fi
-            
-            if [[ "${{ steps.format.outcome }}" == "failure" ]]; then
-              echo "#### Formatting Issues" >> $GITHUB_STEP_SUMMARY
-              echo "To fix formatting issues, run: \`npm run format\`" >> $GITHUB_STEP_SUMMARY
-            fi
-            
-            exit 1
-          else
-            echo "### ✅ Code Quality Check Passed" >> $GITHUB_STEP_SUMMARY
-          fi
+          echo "----- ESLint output (failure) -----"
+          npm run lint || true
+        working-directory: ./
