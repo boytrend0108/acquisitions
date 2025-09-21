@@ -38,10 +38,10 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p acquisitions
-          # If acquisitions/env.expample exists, use it as the source for env files
-          if [ -f acquisitions/env.expample ]; then
-            cp acquisitions/env.expample acquisitions/.env.production || true
-            cp acquisitions/env.expample acquisitions/.env.development || true
+          # If acquisitions/env.example exists, use it as the source for env files
+          if [ -f acquisitions/env.example ]; then
+            cp acquisitions/env.example acquisitions/.env.production || true
+            cp acquisitions/env.example acquisitions/.env.development || true
           else
             # Fallback: create minimal env files so Dockerfile copy doesn't fail
             printf "NODE_ENV=production\n" > acquisitions/.env.production
@@ -51,8 +51,9 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./acquisitions
-          file: ./acquisitions/Dockerfile
+          # Use root directory as context and root Dockerfile
+          context: .
+          file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
