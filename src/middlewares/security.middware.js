@@ -81,5 +81,4 @@ export const securityMiddleware = async (req, res, next) => {
       message: 'Something went wrong with security checks.',
     });
   }
-  next();
 };
