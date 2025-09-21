@@ -24,7 +24,7 @@ export const comparePassword = async (password, hashedPassword) => {
   }
 };
 
-export const authenticateUser = async ({ email, password }) => {
+export const authenticateUser = async ({ email, _password }) => {
   try {
     const [existingUser] = await db
       .select()
@@ -44,7 +44,7 @@ export const authenticateUser = async ({ email, password }) => {
       throw new Error('Invalid credentials');
     }
 
-    const { password: _, ...userWithoutPassword } = existingUser;
+    const { password, ...userWithoutPassword } = existingUser;
     return userWithoutPassword;
   } catch (e) {
     logger.error('Authentication error', e);
