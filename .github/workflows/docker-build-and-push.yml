@@ -37,15 +37,23 @@ jobs:
       - name: Ensure env files for build
         run: |
           set -euo pipefail
+          # Create env files in the root directory (where Dockerfile expects them)
+          if [ -f acquisitions/env.example ]; then
+            cp acquisitions/env.example .env.production || true
+            cp acquisitions/env.example .env.development || true
+          elif [ -f .env.example ]; then
+            cp .env.example .env.production || true
+            cp .env.example .env.development || true
+          else
+            # Fallback: create minimal env files so Dockerfile copy doesn't fail
+            printf "NODE_ENV=production\n" > .env.production
+            printf "NODE_ENV=development\n" > .env.development
+          fi
+          # Also create them in acquisitions folder if needed
           mkdir -p acquisitions
-          # If acquisitions/env.example exists, use it as the source for env files
           if [ -f acquisitions/env.example ]; then
             cp acquisitions/env.example acquisitions/.env.production || true
             cp acquisitions/env.example acquisitions/.env.development || true
-          else
-            # Fallback: create minimal env files so Dockerfile copy doesn't fail
-            printf "NODE_ENV=production\n" > acquisitions/.env.production
-            printf "NODE_ENV=development\n" > acquisitions/.env.development
           fi
 
       - name: Build and push
