@@ -22,15 +22,34 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        shell: bash
+        run: |
+          echo "Node version: $(node --version)"
+          echo "NPM version: $(npm --version)"
+          npm config list
+          npm ci
 
       - name: Run ESLint
-        run: npm run lint
+        shell: bash
+        run: |
+          if [ ! -f "package.json" ]; then
+            echo "Error: package.json not found"
+            exit 1
+          fi
+          echo "Running ESLint..."
+          npm run lint
         continue-on-error: true
         id: lint
 
       - name: Run Prettier check
-        run: npm run format:check
+        shell: bash
+        run: |
+          if [ ! -f "package.json" ]; then
+            echo "Error: package.json not found"
+            exit 1
+          fi
+          echo "Running Prettier check..."
+          npm run format:check
         continue-on-error: true
         id: format
 
