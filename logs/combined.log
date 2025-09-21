@@ -232,3 +232,14 @@
 {"level":"info","message":"Getting users...","service":"acquisitions-api","timestamp":"2025-09-21T09:22:04.126Z"}
 {"level":"info","message":"::ffff:172.21.0.1 - - [21/Sep/2025:09:22:04 +0000] \"GET /api/users HTTP/1.1\" 200 919 \"-\" \"HTTPie\"","service":"acquisitions-api","timestamp":"2025-09-21T09:22:04.184Z"}
 {"level":"info","message":"::ffff:172.21.0.1 - - [21/Sep/2025:09:37:42 +0000] \"DELETE /api/users/6 HTTP/1.1\" 401 72 \"-\" \"HTTPie\"","service":"acquisitions-api","timestamp":"2025-09-21T09:37:42.195Z"}
+{"level":"info","message":"User authenticated: admin@gmail.com (admin)","service":"acquisitions-api","timestamp":"2025-09-21T09:38:20.141Z"}
+{"level":"info","message":"Deleting user: 6","service":"acquisitions-api","timestamp":"2025-09-21T09:38:20.147Z"}
+{"level":"info","message":"User vit1@gmail.com deleted successfully","service":"acquisitions-api","timestamp":"2025-09-21T09:38:20.854Z"}
+{"level":"info","message":"User vit1@gmail.com deleted successfully","service":"acquisitions-api","timestamp":"2025-09-21T09:38:20.855Z"}
+{"level":"info","message":"::ffff:172.21.0.1 - - [21/Sep/2025:09:38:20 +0000] \"DELETE /api/users/6 HTTP/1.1\" 200 108 \"-\" \"HTTPie\"","service":"acquisitions-api","timestamp":"2025-09-21T09:38:20.858Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [21/Sep/2025:10:06:22 +0000] \"GET /health HTTP/1.1\" 200 74 \"-\" \"-\"","service":"acquisitions-api","timestamp":"2025-09-21T10:06:22.651Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [21/Sep/2025:10:06:22 +0000] \"GET /api HTTP/1.1\" 200 42 \"-\" \"-\"","service":"acquisitions-api","timestamp":"2025-09-21T10:06:22.744Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [21/Sep/2025:10:06:22 +0000] \"GET /nonexsistent HTTP/1.1\" 404 70 \"-\" \"-\"","service":"acquisitions-api","timestamp":"2025-09-21T10:06:22.854Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [21/Sep/2025:10:07:03 +0000] \"GET /health HTTP/1.1\" 200 73 \"-\" \"-\"","service":"acquisitions-api","timestamp":"2025-09-21T10:07:03.496Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [21/Sep/2025:10:07:03 +0000] \"GET /api HTTP/1.1\" 200 42 \"-\" \"-\"","service":"acquisitions-api","timestamp":"2025-09-21T10:07:03.602Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [21/Sep/2025:10:07:03 +0000] \"GET /nonexsistent HTTP/1.1\" 404 76 \"-\" \"-\"","service":"acquisitions-api","timestamp":"2025-09-21T10:07:03.726Z"}
